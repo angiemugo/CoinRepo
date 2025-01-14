@@ -1,0 +1,120 @@
+{
+    "status": "success",
+    "data": {
+        "coin": {
+            "uuid": "Qwsogvtv82FCd",
+            "symbol": "BTC",
+            "name": "Bitcoin",
+            "description": "Bitcoin is a digital currency with a finite supply, allowing users to send/receive money without a central bank/government, often nicknamed \"Digital Gold\".",
+            "color": "#f7931A",
+            "iconUrl": "https://cdn.coinranking.com/H1arXIuOZ/doge.svg",
+            "websiteUrl": "https://bitcoin.org",
+            "links": [
+                {
+                    "name": "coinmarketcap.com",
+                    "url": "https://coinmarketcap.com/currencies/bitcoin/",
+                    "type": "cmc"
+                },
+                {
+                    "name": "bitcoin.org",
+                    "type": "website",
+                    "url": "https://bitcoin.org"
+                },
+                {
+                    "name": "bitcoinmagazine.com",
+                    "url": "https://bitcoinmagazine.com/",
+                    "type": "website"
+                },
+                {
+                    "name": "bitcointalk.org",
+                    "url": "https://bitcointalk.org/",
+                    "type": "bitcointalk"
+                },
+                {
+                    "name": "bitcoin/bitcoin",
+                    "url": "https://github.com/bitcoin/bitcoin",
+                    "type": "github"
+                },
+                {
+                    "name": "r/bitcoin",
+                    "url": "https://www.reddit.com/r/bitcoin/",
+                    "type": "reddit"
+                },
+                {
+                    "name": "Bitcoin_Magazine",
+                    "url": "https://t.me/Bitcoin_Magazine",
+                    "type": "telegram"
+                },
+                {
+                    "name": "bitcoin",
+                    "url": "https://t.me/bitcoin",
+                    "type": "telegram"
+                },
+                {
+                    "name": "Bitcoin Whitepaper",
+                    "url": "https://bitcoin.org/bitcoin.pdf",
+                    "type": "whitepaper"
+                }
+            ],
+            "supply": {
+                "confirmed": true,
+                "supplyAt": 1736427840,
+                "max": "21000000",
+                "total": "19807725",
+                "circulating": "19807725"
+            },
+            "numberOfMarkets": 2300,
+            "numberOfExchanges": 102,
+            "24hVolume": "51900407761",
+            "marketCap": "1850275696321",
+            "fullyDilutedMarketCap": "1961648277263",
+            "price": "93411.82272679514",
+            "btcPrice": "1",
+            "priceAt": 1736427780,
+            "change": "-1.94",
+            "rank": 1,
+            "sparkline": [
+                "95347.88981554087",
+                "95352.67178811383",
+                "95204.4135814864",
+                "94994.0129885505",
+                "93798.018838466",
+                "94431.035245363",
+                "94442.1153917761",
+                "94095.17263920246",
+                "94193.15085434659",
+                "94855.62254334347",
+                "95076.27478468018",
+                "94989.10265990393",
+                "95154.50747722134",
+                "94509.74993388327",
+                "94362.67862406009",
+                "94148.52174441172",
+                "94422.60823486016",
+                "94359.86967969476",
+                "93840.72948992264",
+                "93097.03967972979",
+                "93423.5312880319",
+                "93382.75133257877",
+                "93539.27022185766",
+                "93489.06279254681"
+            ],
+            "allTimeHigh": {
+                "price": "108195.47505398515",
+                "timestamp": 1734447540
+            },
+            "coinrankingUrl": "https://coinranking.com/coin/Qwsogvtv82FCd+bitcoin-btc",
+            "tier": 1,
+            "lowVolume": false,
+            "listedAt": 1330214400,
+            "hasContent": true,
+            "notices": null,
+            "contractAddresses": [],
+            "tags": [
+                "layer-1",
+                "proof-of-work",
+                "halal"
+            ]
+        }
+    }
+}
