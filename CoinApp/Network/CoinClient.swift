@@ -8,14 +8,11 @@
 import Foundation
 
 final class CoinClient {
-    private var apiKey: String? = nil
     let networkClient: NetworkClient
     let urlBuilder = URLBuilder()
 
-    init(apiKey: String,
-        networkClient: NetworkClient? = nil) {
-        self.apiKey = apiKey
-        self.networkClient = networkClient ?? DefaultNetworkClient(apiKey)
+    init(networkClient: NetworkClient? = nil) {
+        self.networkClient = networkClient ?? DefaultNetworkClient()
     }
 
     func headers() -> Network.HTTPHeaders {

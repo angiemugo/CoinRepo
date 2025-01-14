@@ -15,21 +15,25 @@ class FavoritesCoordinator: Coordinator {
         self.navigationController = navigationController
         apiKey = try! fetchAPIKey()
     }
-    
+
     func start() {
-        let networkClient = CoinClient(apiKey: apiKey)
+        let networkClient = CoinClient()
         let dataSource = RemoteDataSource(networkClient)
-        let viewModel = CoinsListViewModel(dataSource: dataSource, coordinator: self, isFavorites: true)
+        let viewModel = CoinsListViewModel(dataSource: dataSource,
+                                           coordinator: self,
+                                           isFavorites: true)
         let favoriteVC = CoinsListViewController(viewModel: viewModel)
-        favoriteVC.tabBarItem = UITabBarItem(title: "Favorite", image: UIImage(systemName: "star.fill"), selectedImage: nil)
-        
+        favoriteVC.tabBarItem = UITabBarItem(title: "Favorite",
+                                             image: UIImage(systemName: "star.fill"),
+                                             selectedImage: nil)
         navigationController.pushViewController(favoriteVC, animated: true)
     }
-    
+
     func showDetails(for coinId: String) {
-        let networkClient = CoinClient(apiKey: apiKey)
-       let dataSource = RemoteDataSource(networkClient)
-        let viewModel = CoinDetailViewModel(dataSource: dataSource, coinId: coinId)
+        let networkClient = CoinClient()
+        let dataSource = RemoteDataSource(networkClient)
+        let viewModel = CoinDetailViewModel(dataSource: dataSource,
+                                            coinId: coinId)
         let detailsVC = CoinDetailViewController(viewModel: viewModel)
         navigationController.pushViewController(detailsVC, animated: true)
     }

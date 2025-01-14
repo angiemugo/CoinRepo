@@ -33,7 +33,7 @@ class DefaultNetworkClient: NetworkClient {
     private let decoder: JSONDecoder
     private let defaultHeaders: Network.HTTPHeaders
     
-    init(_ apiKey: String? = nil) {
+    init() {
         encoder = JSONEncoder()
         encoder.dateEncodingStrategy = .formatted(DateFormatter.iso8601Full)
         
@@ -41,6 +41,7 @@ class DefaultNetworkClient: NetworkClient {
         decoder.dateDecodingStrategy = .formatted(DateFormatter.iso8601Full)
         decoder.keyDecodingStrategy = .convertFromSnakeCase
 
+        let apiKey = try? fetchAPIKey()
         var headers = [String:String]()
         if let apiKey = apiKey {
             headers["Authorisation"] = "Bearer \(apiKey)"
