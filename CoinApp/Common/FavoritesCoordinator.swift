@@ -9,13 +9,16 @@ import UIKit
 
 class FavoritesCoordinator: Coordinator {
     var navigationController: UINavigationController
-    
+    let apiKey: String
+
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
+        apiKey = try! fetchAPIKey()
     }
     
     func start() {
-        let dataSource = LocalDataSource()
+        let networkClient = CoinClient(apiKey: apiKey)
+        let dataSource = RemoteDataSource(networkClient)
         let viewModel = CoinsListViewModel(dataSource: dataSource, coordinator: self, isFavorites: true)
         let favoriteVC = CoinsListViewController(viewModel: viewModel)
         favoriteVC.tabBarItem = UITabBarItem(title: "Favorite", image: UIImage(systemName: "star.fill"), selectedImage: nil)
@@ -24,7 +27,9 @@ class FavoritesCoordinator: Coordinator {
     }
     
     func showDetails(for coinId: String) {
-        let viewModel = CoinDetailViewModel(dataSource: LocalDataSource(), coinId: coinId)
+        let networkClient = CoinClient(apiKey: apiKey)
+       let dataSource = RemoteDataSource(networkClient)
+        let viewModel = CoinDetailViewModel(dataSource: dataSource, coinId: coinId)
         let detailsVC = CoinDetailViewController(viewModel: viewModel)
         navigationController.pushViewController(detailsVC, animated: true)
     }

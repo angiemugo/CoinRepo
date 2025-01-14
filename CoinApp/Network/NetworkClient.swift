@@ -10,7 +10,7 @@ import Foundation
 enum Network {
     typealias HTTPHeaders = [String: String]
     
-    static let baseURL = URL(string: "https://api.coinranking.com/2/")!
+    static let baseURL = URL(string: "https://api.coinranking.com/v2/")!
 
     enum HTTPMethod: String {
         case GET
