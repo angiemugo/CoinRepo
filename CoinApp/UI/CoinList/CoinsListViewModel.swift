@@ -36,9 +36,8 @@ class CoinsListViewModel: CoinListViewModelType {
                                     let coinList = try await self.dataSource.getCoins(offset: page * pageSize)
                                     let favoriteIDs = FavoritesManager.shared.getFavoriteIDs()
                                     let models = coinList.map { UICoinModel(coinModel: $0, isFavorite: favoriteIDs.contains($0.id)) }
-                                    let filteredModels = self.isFavorites ? models.filter { $0.isFavorite } : models
 
-                                    let uniqueModels = filteredModels.filter { model in
+                                    let uniqueModels = models.filter { model in
                                         !self.allCoins.contains(where: { $0.id == model.id })
                                     }
 
@@ -46,7 +45,7 @@ class CoinsListViewModel: CoinListViewModelType {
 
                                     self.hasMore = self.currentPage < 4
 
-
+                                    let filteredModels = self.isFavorites ? self.allCoins.filter { $0.isFavorite } : self.allCoins
                                     promise(.success(.loaded(filteredModels)))
                                 } catch {
                                     promise(.success(.error(error as! CoinAppClientError)))
