@@ -25,7 +25,6 @@ struct StatsRow: View {
                 .font(.body)
         }
         .padding()
-        .background(Color.white)
         .cornerRadius(8)
         .shadow(radius: 5)
     }

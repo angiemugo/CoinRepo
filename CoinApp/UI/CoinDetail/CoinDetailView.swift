@@ -55,10 +55,9 @@ struct CoinDetailView: View {
                             Text("\(detail.change)")
                                 .font(.headline)
                         }
-                    }
+                    }.padding()
 
-                    PerformanceChart(viewModel: viewModel)
-
+                    PerformanceChart().environmentObject(viewModel)
 
                     Text("What is \(detail.name)?")
                         .font(.headline)
@@ -87,7 +86,7 @@ struct CoinDetailView: View {
                                 .padding(.bottom, 5)
                         }
                     }
-                }
+                }.listStyle(PlainListStyle())
             }
         }
         .task {

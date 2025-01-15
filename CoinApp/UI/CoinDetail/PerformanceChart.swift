@@ -2,7 +2,7 @@ import SwiftUI
 import Charts
 
 struct PerformanceChart: View {
-    @StateObject var viewModel: CoinDetailViewModel
+    @EnvironmentObject private var viewModel: CoinDetailViewModel
     @State private var selectedTimePeriod: TimePeriod? = nil
 
     var body: some View {
