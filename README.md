@@ -64,5 +64,5 @@
     <td><img src="https://github.com/user-attachments/assets/bcfaaa72-2a75-43bd-8193-810bd198c337" alt="IMG_0773" width="300"></td>
     <td><img src="https://github.com/user-attachments/assets/d0afcb22-afa5-494b-8a39-a80c380cc0e7" alt="IMG_0772" width="300"></td>
   </tr>
-</table>![Screenshot 2025-01-15 at 07 55 20](https://github.com/user-attachments/assets/d0afcb22-afa5-494b-8a39-a80c380cc0e7)
+</table>
 
