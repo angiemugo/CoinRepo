@@ -11,10 +11,7 @@ import SwiftUI
 class BaseViewController: UIViewController {
     private var genericErrorView: UIView?
     private var loadingView: UIView?
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
+private var emptyView: UIView?
 
     func showErrorView(error: CoinAppClientError) {
         if genericErrorView == nil {
@@ -44,6 +41,19 @@ class BaseViewController: UIViewController {
             loadingView?.removeFromSuperview()
         }
     }
+
+    func showEmpty() {
+        if emptyView == nil {
+            let emptyView = EmptyView()
+            let emptyVC = AddSwiftUIView(emptyView)
+            self.emptyView = emptyVC.view
+        }
+
+    }
+
+    func hideEmpty() {
+        if emptyView != nil && view.subviews.contains(emptyView!) {
+            emptyView?.removeFromSuperview()
+        }
+    }
 }
-
-

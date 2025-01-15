@@ -62,7 +62,7 @@ class CoinsListViewController: BaseViewController, UITableViewDelegate {
     }
 
     private func configureUI() {
-        title = "Coins List"
+        title = viewModel.isFavorites ? "Favorites" : "Coins List"
         setupNavigationItem()
         setupTableView()
     }
@@ -113,23 +113,30 @@ class CoinsListViewController: BaseViewController, UITableViewDelegate {
 
     private func render(for state: CoinListLoadingState) {
         hideLoading()
+        hideEmpty()
         isLoading = false
 
         switch state {
         case .idle:
             update(with: [], animate: true)
         case .loading:
-            showLoadingView()
             update(with: [], animate: false)
+            showLoadingView()
         case .loaded(let coins):
             update(with: coins, animate: true)
+            isLoading = false
+            hideLoadingFooter()
         case .error(let error):
-            showErrorView(error: error)
             update(with: [], animate: true)
+            showErrorView(error: error)
         }
     }
 
     func update(with coins: [UICoinModel], animate: Bool = false) {
+        if coins.isEmpty {
+            showEmpty()
+            return
+        }
         var snapshot = NSDiffableDataSourceSnapshot<Section, UICoinModel>()
         snapshot.appendSections(Section.allCases)
         snapshot.appendItems(coins, toSection: .coins)
@@ -141,9 +148,9 @@ class CoinsListViewController: BaseViewController, UITableViewDelegate {
             tableView: tableView,
             cellProvider: { tableView, indexPath, coinModel in
                 guard let cell = tableView.dequeueReusableCell(withClass: CoinCell.self) else {
-                            assertionFailure("Failed to dequeue \(CoinCell.self)!")
-                            return UITableViewCell()
-                        }
+                    assertionFailure("Failed to dequeue \(CoinCell.self)!")
+                    return UITableViewCell()
+                }
                 cell.configure(coin: coinModel)
                 return cell
             }
@@ -158,11 +165,12 @@ class CoinsListViewController: BaseViewController, UITableViewDelegate {
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let bottomEdge = scrollView.contentOffset.y + scrollView.frame.size.height
+
         if bottomEdge >= scrollView.contentSize.height - 50 {
-            guard !isLoading && !viewModel.isFavorites else { return }
-            isLoading = true
-            loadMore.send(viewModel.currentPage + 1)
-            setupLoadingFooter()
+            guard !isLoading && !viewModel.isFavorites && viewModel.hasMore else { return }
+            self.isLoading = true
+            self.loadMore.send(self.viewModel.currentPage + 1)
+            self.setupLoadingFooter()
         }
     }
 
@@ -178,14 +186,20 @@ class CoinsListViewController: BaseViewController, UITableViewDelegate {
         tableView.tableFooterView = loadingFooterView
     }
 
+    private func hideLoadingFooter() {
+        if loadingFooterView != nil {
+            loadingFooterView.isHidden = true
+        }
+    }
+
     private func createSwipeAction(for coin: UICoinModel) -> UIContextualAction {
         let isFavorited = coin.isFavorite
         let title = isFavorited ? "Remove" : "Favorite"
         let backgroundColor = isFavorited ? UIColor.systemGray : UIColor.systemPurple
-
         return UIContextualAction(style: .normal, title: title) { [weak self] _, _, completion in
             guard let self = self else { return }
             self.favoriteCoin.send(coin)
+            completion(true)
         }.withBackgroundColor(backgroundColor)
     }
 

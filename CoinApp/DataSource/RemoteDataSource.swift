@@ -21,7 +21,7 @@ class RemoteDataSource: DataSource {
         self.headers = networkClient.headers
     }
 
-    func getCoins(offset: Int = 0) async throws -> [CoinModel] {
+    func getCoins(offset: Int) async throws -> [CoinModel] {
         let result: DataResponse<CoinResponse> = try await networkClient.get(urlBuilder.url(path: CoinClientPaths.CoinList, params: ["offset": "\(offset)",
                                                                                                                                      "limit": "20"]),
                                                                              headers: headers)

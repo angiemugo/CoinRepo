@@ -43,10 +43,6 @@ struct ErrorView: View {
             errorMessage = "Decoding Error: \(error.localizedDescription)"
         case .unsupportedResponseError:
             errorMessage = "Unsupported Response Error."
-        case .builderError(let message):
-            errorMessage = "Builder Error: \(message)"
-        case .locationError(let message):
-            errorMessage = "Location Error: \(message)"
         }
     }
 }

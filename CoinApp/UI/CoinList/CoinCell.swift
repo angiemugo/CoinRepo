@@ -12,13 +12,6 @@ import SDWebImageSVGCoder
 class CoinCell: UITableViewCell, ReusableView, NibProvidable {
 
     @UsesAutoLayout
-    private(set) var starImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "star.fill")
-        return imageView
-    }()
-
-    @UsesAutoLayout
     private(set) var nameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 16)
@@ -76,7 +69,7 @@ class CoinCell: UITableViewCell, ReusableView, NibProvidable {
     }
 
     private func setupSubviews() {
-        [iconImageView, nameLabel, priceLabel, performanceLabel, starImageView].forEach {
+        [iconImageView, nameLabel, priceLabel, performanceLabel].forEach {
             addSubview($0)
         }
     }
@@ -89,27 +82,21 @@ class CoinCell: UITableViewCell, ReusableView, NibProvidable {
 
         nameLabel.centerYAnchor.constraint(equalTo: iconImageView.centerYAnchor).activate()
         nameLabel.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor, constant: Layout.defaultSpacing).activate()
-        nameLabel.trailingAnchor.constraint(equalTo: starImageView.leadingAnchor, constant: -Layout.defaultSpacing).activate()
+        nameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Layout.defaultSpacing).activate()
 
         priceLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: Layout.defaultSpacing).activate()
         priceLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Layout.defaultSpacing).activate()
-        priceLabel.trailingAnchor.constraint(equalTo: starImageView.leadingAnchor, constant: -Layout.defaultSpacing).activate()
+        priceLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Layout.defaultSpacing).activate()
 
         performanceLabel.topAnchor.constraint(equalTo: priceLabel.bottomAnchor, constant: Layout.defaultSpacing).activate()
         performanceLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Layout.defaultSpacing).activate()
-        performanceLabel.trailingAnchor.constraint(equalTo: starImageView.leadingAnchor, constant: -Layout.defaultSpacing).activate()
-
-        starImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Layout.defaultSpacing).activate()
-        starImageView.centerYAnchor.constraint(equalTo: centerYAnchor).activate()
-        starImageView.widthAnchor.constraint(equalToConstant: 20).activate()
-        starImageView.heightAnchor.constraint(equalToConstant: 20).activate()
+        performanceLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Layout.defaultSpacing).activate()
     }
 
     func configure(coin: UICoinModel) {
         nameLabel.text = coin.name
         priceLabel.text = coin.price.formattedCurrency()
         performanceLabel.text = coin.currentPerformance.formattedCurrency()
-        starImageView.tintColor = coin.isFavorite ? .systemPurple : .systemGray
         loadIconImage(from: coin.icon)
     }
 

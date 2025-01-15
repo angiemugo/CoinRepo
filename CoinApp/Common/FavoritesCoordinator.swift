@@ -23,7 +23,7 @@ class FavoritesCoordinator: Coordinator {
                                            coordinator: self,
                                            isFavorites: true)
         let favoriteVC = CoinsListViewController(viewModel: viewModel)
-        favoriteVC.tabBarItem = UITabBarItem(title: "Favorite",
+        favoriteVC.tabBarItem = UITabBarItem(title: "Favorites",
                                              image: UIImage(systemName: "star.fill"),
                                              selectedImage: nil)
         navigationController.pushViewController(favoriteVC, animated: true)

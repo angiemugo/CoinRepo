@@ -29,10 +29,6 @@ class FavoritesManager {
         saveFavorites(favorites)
     }
 
-    func isFavorite(_ id: String) -> Bool {
-        return getFavoriteIDs().contains(id)
-    }
-
     private func saveFavorites(_ ids: [String]) {
         UserDefaults.standard.set(ids, forKey: favoritesKey)
     }

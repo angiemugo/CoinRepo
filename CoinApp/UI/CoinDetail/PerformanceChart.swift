@@ -79,15 +79,3 @@ struct PerformanceChart: View {
         .padding(.top, 8)
     }
 }
-
-
-//#Preview {
-//    PerformanceChart(
-//        points: [
-//            PerformanceChartData(data: "100.0", index: -3),
-//            PerformanceChartData(data: "150.5", index: -2),
-//            PerformanceChartData(data: "125.3", index: -1),
-//            PerformanceChartData(data: "175.8", index: 0)
-//        ]
-//    )
-//}

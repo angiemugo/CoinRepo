@@ -13,9 +13,11 @@ class CoinsListViewModel: CoinListViewModelType {
     private let dataSource: DataSource
     private let coordinator: Coordinator
     private var allCoins = [UICoinModel]()
+    private let limit = 100
     private var cancellables: [AnyCancellable] = []
     var currentPage = 0
     var isFavorites: Bool
+    var hasMore = true
 
     init(dataSource: DataSource, coordinator: Coordinator, isFavorites: Bool) {
         self.dataSource = dataSource
@@ -41,6 +43,8 @@ class CoinsListViewModel: CoinListViewModelType {
 
                                     self.allCoins.append(contentsOf: uniqueModels)
 
+                                    self.hasMore = self.currentPage < 4
+
                                     let filteredModels = self.isFavorites ? self.allCoins.filter { $0.isFavorite } : self.allCoins
                                     promise(.success(.loaded(filteredModels)))
                                 } catch {
@@ -48,9 +52,8 @@ class CoinsListViewModel: CoinListViewModelType {
                                 }
                             }
                         }.eraseToAnyPublisher()
-                    }
+                    }.share()
                     .eraseToAnyPublisher()
-
 
         let sortedCoins = Publishers.CombineLatest(loadCoins, input.sortOption)
             .map { state, sortOption -> CoinListLoadingState in
@@ -84,13 +87,12 @@ class CoinsListViewModel: CoinListViewModelType {
             .eraseToAnyPublisher()
     }
 
-
     private func sort(coins: [UICoinModel], by sortOption: SortOptions) -> [UICoinModel] {
           switch sortOption {
           case .price:
               return coins.sorted { $0.price.convertToDouble() > $1.price.convertToDouble() }
           case .performance:
-              return coins.sorted { $0.currentPerformance > $1.currentPerformance }
+              return coins.sorted { $0.currentPerformance.convertToDouble() > $1.currentPerformance.convertToDouble() }
           }
       }
 
