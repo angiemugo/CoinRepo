@@ -17,7 +17,6 @@ enum SortOptions {
 struct CoinListVMInput {
     let loadMore: AnyPublisher<Int, Never>
     let sortOption: AnyPublisher<SortOptions, Never>
-    let isFavorite: AnyPublisher<Bool, Never>
     let selection: AnyPublisher<String, Never>
     let favoriteCoin: AnyPublisher<UICoinModel, Never>
 }

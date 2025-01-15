@@ -45,7 +45,7 @@ class CoinsListViewModel: CoinListViewModelType {
 
                                     self.hasMore = self.currentPage < 4
 
-                                    let filteredModels = self.isFavorites ? self.allCoins.filter { $0.isFavorite } : self.allCoins
+                                    let filteredModels = self.isFavorites ? self.allCoins.filter { favoriteIDs.contains($0.id) } : self.allCoins
                                     promise(.success(.loaded(filteredModels)))
                                 } catch {
                                     promise(.success(.error(error as! CoinAppClientError)))

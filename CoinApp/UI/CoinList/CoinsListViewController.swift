@@ -17,7 +17,6 @@ class CoinsListViewController: BaseViewController, UITableViewDelegate {
     private let viewModel: CoinsListViewModel
     private let sort = PassthroughSubject<SortOptions, Never>()
     private let selection = PassthroughSubject<String, Never>()
-    private let isFavorite = PassthroughSubject<Bool, Never>()
     private let loadMore = PassthroughSubject<Int, Never>()
     private let favoriteCoin = PassthroughSubject<UICoinModel, Never>()
     private lazy var dataSource = makeDataSource()
@@ -41,12 +40,7 @@ class CoinsListViewController: BaseViewController, UITableViewDelegate {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if viewModel.isFavorites {
             loadMore.send(0)
-            isFavorite.send(true)
-        } else {
-            loadMore.send(0)
-        }
     }
 
     override func viewDidLoad() {
@@ -99,7 +93,6 @@ class CoinsListViewController: BaseViewController, UITableViewDelegate {
         let input = CoinListVMInput(
             loadMore: loadMore.eraseToAnyPublisher(),
             sortOption: sort.eraseToAnyPublisher(),
-            isFavorite: isFavorite.eraseToAnyPublisher(),
             selection: selection.eraseToAnyPublisher(),
             favoriteCoin: favoriteCoin.eraseToAnyPublisher()
         )
@@ -158,6 +151,7 @@ class CoinsListViewController: BaseViewController, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        guard !viewModel.isFavorites else { return nil }
         guard let coin = dataSource.itemIdentifier(for: indexPath) else { return nil }
         let action = createSwipeAction(for: coin)
         return UISwipeActionsConfiguration(actions: [action])
